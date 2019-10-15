@@ -43,21 +43,3 @@ jobs:
   - template: ../opt/job-master-build-notest.yml
     parameters:
       solutionName: 'IX.StandardExtensions.WPF'
-- job:
-  timeoutInMinutes: 10
-  pool:
-    name: Azure Pipelines
-    vmImage: ubuntu-latest
-  steps:
-  - template: ../opt/job-master-build-notest.yml
-    parameters:
-      solutionName: 'IX.StandardExtensions.WPF'
-- job:
-  timeoutInMinutes: 10
-  pool:
-    name: Azure Pipelines
-    vmImage: macOS-latest
-  steps:
-  - template: ../opt/job-master-build-notest.yml
-    parameters:
-      solutionName: 'IX.StandardExtensions.WPF'
