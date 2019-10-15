@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Build configuration -->
+  <PropertyGroup>
+    <TargetFrameworks>net452;net461</TargetFrameworks>
+  </PropertyGroup>
+
+  <!-- Package metadata -->
+  <PropertyGroup>
+    <Title>IX Undoable for WPF</Title>
+    <Description>A library for a standard undo/redo implementation for WPF.</Description>
+  </PropertyGroup>
+
+  <!-- References -->
+  <ItemGroup>
+    <ProjectReference Include="..\IX.StandardExtensions.WPF\IX.StandardExtensions.WPF.csproj" />
+    <PackageReference Include="IX.Undoable" Version="0.5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIsFramework)'=='true'">
+    <Reference Include="System" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <!-- Project system and dependencies -->
+  <ItemGroup>
+    <PackageReference Include="IX.Framework.ProjectSystem" Version="1.0.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
