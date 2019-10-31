@@ -15,7 +15,7 @@ namespace IX.StandardExtensions.WPF
     [PublicAPI]
     public static class DesignMode
     {
-        private static Lazy<bool> isInDesignMode = new Lazy<bool>(
+        private static readonly Lazy<bool> RuntimeIsInDesignMode = new Lazy<bool>(
             () => (bool)DependencyPropertyDescriptor.FromProperty(
                 DesignerProperties.IsInDesignModeProperty,
                 typeof(FrameworkElement)).Metadata.DefaultValue);
@@ -24,6 +24,6 @@ namespace IX.StandardExtensions.WPF
         ///     Gets a value indicating whether the assembly was loaded in design mode or not.
         /// </summary>
         /// <value><see langword="true" /> if the assembly is in design mode; otherwise, <see langword="false" />.</value>
-        public static bool IsInDesignMode => isInDesignMode.Value;
+        public static bool IsInDesignMode => RuntimeIsInDesignMode.Value;
     }
 }

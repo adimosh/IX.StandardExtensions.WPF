@@ -53,7 +53,16 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
                 in continuation,
                 nameof(continuation));
 
-            this.sourceObject.Dispatcher.Invoke(continuation);
+            if (this.sourceObject.Dispatcher?.CheckAccess() ?? true)
+            {
+                // We are either on the UI thread, or a dispatcher is not available at this time
+                continuation();
+            }
+            else
+            {
+                // A dispatcher exists and we are not on the UI thread
+                this.sourceObject.Dispatcher.Invoke(continuation);
+            }
         }
 
         /// <summary>

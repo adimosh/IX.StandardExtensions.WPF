@@ -107,29 +107,29 @@ namespace IX.StandardExtensions.WPF.Extensions
                 return null;
             }
 
-            T child = null;
-            var numVisuals = VisualTreeHelper.GetChildrenCount(parent);
-            for (var i = 0; i < numVisuals; i++)
-            {
-                // Traverse all visual tree and look for a child
-                DependencyObject v = VisualTreeHelper.GetChild(
-                    parent,
-                    i);
-                child = v as T;
-                if (child == null && v != null)
-                {
-                    // The child is of the wrong type, let's see if it has children of the right type
-                    child = GetVisualChild<T>(v);
-                }
+            var furtherDownTree = new List<DependencyObject> { parent };
 
-                if (child != null)
+            for (int q = 0; q < furtherDownTree.Count; q++)
+            {
+                var localParent = furtherDownTree[q];
+                var numVisuals = VisualTreeHelper.GetChildrenCount(localParent);
+                for (var i = 0; i < numVisuals; i++)
                 {
-                    // Child was found, let's stop searching
-                    break;
+                    // Traverse all visual tree and look for a child
+                    DependencyObject v = VisualTreeHelper.GetChild(
+                        localParent,
+                        i);
+
+                    if (v is T properChild)
+                    {
+                        return properChild;
+                    }
+
+                    furtherDownTree.Add(v);
                 }
             }
 
-            return child;
+            return null;
         }
 
         /// <summary>

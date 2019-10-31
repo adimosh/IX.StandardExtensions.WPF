@@ -2,6 +2,7 @@
 // Copyright (c) Adrian Mos with all rights reserved. Part of the IX Framework.
 // </copyright>
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using JetBrains.Annotations;
@@ -37,5 +38,44 @@ namespace IX.StandardExtensions.WPF
         /// <value><see langword="true" /> if this view model is in design mode; otherwise, <see langword="false" />.</value>
         [Browsable(false)]
         public bool IsInDesignMode => DesignMode.IsInDesignMode;
+
+        /// <summary>
+        /// Sets a value in a property's backing field, then raises the <see cref="INotifyPropertyChanged.PropertyChanged"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the property's backing field, and the value to set.</typeparam>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="backingField">The backing field.</param>
+        /// <param name="value">The value.</param>
+        protected void SetPropertyValue<T>(
+            string propertyName,
+            ref T backingField,
+            T value) =>
+            this.SetPropertyValue(propertyName, ref backingField, value, EqualityComparer<T>.Default);
+
+        /// <summary>
+        /// Sets a value in a property's backing field, then raises the <see cref="INotifyPropertyChanged.PropertyChanged" />.
+        /// </summary>
+        /// <typeparam name="T">The type of the property's backing field, and the value to set.</typeparam>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="backingField">The backing field.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="equalityComparer">The equality comparer for type <typeparamref name="T"/>.</param>
+        protected void SetPropertyValue<T>(
+            string propertyName,
+            ref T backingField,
+            T value,
+            IEqualityComparer<T> equalityComparer)
+        {
+            if (equalityComparer.Equals(
+                backingField,
+                value))
+            {
+                return;
+            }
+
+            backingField = value;
+
+            this.RaisePropertyChanged(propertyName);
+        }
     }
 }

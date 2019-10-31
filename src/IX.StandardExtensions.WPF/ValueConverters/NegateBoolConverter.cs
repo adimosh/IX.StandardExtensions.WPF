@@ -1,4 +1,4 @@
-// <copyright file="BoolVisibilityConverter.cs" company="Adrian Mos">
+// <copyright file="NegateBoolConverter.cs" company="Adrian Mos">
 // Copyright (c) Adrian Mos with all rights reserved. Part of the IX Framework.
 // </copyright>
 
@@ -11,11 +11,11 @@ using JetBrains.Annotations;
 namespace IX.StandardExtensions.WPF.ValueConverters
 {
     /// <summary>
-    ///     A value converter between <see cref="bool" /> and <see cref="Visibility" />.
+    ///     A value converter that negates a <see cref="bool" />.
     /// </summary>
     /// <seealso cref="ValueConverterBase" />
     [PublicAPI]
-    public class BoolVisibilityConverter : ValueConverterBase
+    public class NegateBoolConverter : ValueConverterBase
     {
         /// <summary>
         ///     Converts a value.
@@ -42,26 +42,13 @@ namespace IX.StandardExtensions.WPF.ValueConverters
             object parameter,
             CultureInfo culture)
         {
-            var result = value switch
+            bool convertedValue = value switch
             {
                 bool b => b,
                 null => false,
                 _ => throw new ArgumentInvalidTypeException(nameof(value))
             };
-
-            BoolVisibilityFilter filter;
-
-            if (parameter is BoolVisibilityFilter visibilityFilter)
-            {
-                filter = visibilityFilter;
-            }
-            else
-            {
-                filter = BoolVisibilityFilter.Collapsed;
-            }
-
-            return result ? Visibility.Visible :
-                filter == BoolVisibilityFilter.Hidden ? Visibility.Hidden : Visibility.Collapsed;
+            return !convertedValue;
         }
 
         /// <summary>
@@ -89,27 +76,13 @@ namespace IX.StandardExtensions.WPF.ValueConverters
             object parameter,
             CultureInfo culture)
         {
-            Visibility result = value switch
+            bool convertedValue = value switch
             {
-                Visibility visibility => visibility,
-                null => Visibility.Collapsed,
+                bool b => b,
+                null => true,
                 _ => throw new ArgumentInvalidTypeException(nameof(value))
             };
-
-            BoolVisibilityFilter filter;
-
-            if (parameter is BoolVisibilityFilter visibilityFilter)
-            {
-                filter = visibilityFilter;
-            }
-            else
-            {
-                filter = BoolVisibilityFilter.Collapsed;
-            }
-
-            return filter == BoolVisibilityFilter.Hidden
-                ? result == Visibility.Visible || result == Visibility.Collapsed
-                : result == Visibility.Visible;
+            return !convertedValue;
         }
     }
 }

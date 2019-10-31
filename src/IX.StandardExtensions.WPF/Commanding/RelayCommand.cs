@@ -4,7 +4,6 @@
 
 using System;
 using System.Windows.Input;
-using System.Windows.Threading;
 using JetBrains.Annotations;
 
 namespace IX.StandardExtensions.WPF.Commanding
@@ -38,7 +37,7 @@ namespace IX.StandardExtensions.WPF.Commanding
         public RelayCommand(Action<object> executeAction)
         {
             this.executeAction = executeAction;
-            this.canExecuteAction = (state) => true;
+            this.canExecuteAction = _ => true;
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace IX.StandardExtensions.WPF.Commanding
             {
                 this.isWaitingForAction = false;
 
-                (Dispatcher.CurrentDispatcher ?? global::System.Windows.Application.Current.Dispatcher).Invoke(this.TriggerCanExecuteChanged, DispatcherPriority.ApplicationIdle);
+                this.TriggerCanExecuteChanged();
             }
         }
 #pragma warning restore HAA0603 // Delegate allocation from a method group
