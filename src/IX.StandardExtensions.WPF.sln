@@ -18,12 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Configurations", "Bui
 		azure.devops.releasebuild.yaml = azure.devops.releasebuild.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IDE Configuration", "IDE Configuration", "{9ACF55FC-8537-4C24-8D87-54B21F95FD52}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		stylecop.json = stylecop.json
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IX.Undoable.WPF", "IX.Undoable.WPF\IX.Undoable.WPF.csproj", "{2A327C3B-ED8F-48C5-81F9-F3CDF4C21E8E}"
 EndProject
 Global
@@ -46,7 +40,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F7C7F358-C8BF-4126-AE44-F4CA067EB4CE} = {5E05B9C5-6765-44FC-8A6E-BEE018BDEA9B}
-		{9ACF55FC-8537-4C24-8D87-54B21F95FD52} = {5E05B9C5-6765-44FC-8A6E-BEE018BDEA9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E982D088-16DA-46BF-A043-B1326577DB77}
