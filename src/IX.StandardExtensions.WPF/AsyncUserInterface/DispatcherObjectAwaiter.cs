@@ -26,8 +26,8 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
         /// <param name="sourceObject">The source object.</param>
         public DispatcherObjectAwaiter([NotNull] DispatcherObject sourceObject)
         {
-            Contract.RequiresNotNullPrivate(
-                in sourceObject,
+            Requires.NotNull(
+                sourceObject,
                 nameof(sourceObject));
 
             this.sourceObject = sourceObject;
@@ -43,14 +43,14 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
 
         /// <summary>Schedules the continuation action that's invoked when the instance completes.</summary>
         /// <param name="continuation">The action to invoke when the operation completes.</param>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         ///     The <paramref name="continuation" /> argument is null (Nothing in
         ///     Visual Basic).
         /// </exception>
         public void OnCompleted(Action continuation)
         {
-            Contract.RequiresNotNullPrivate(
-                in continuation,
+            Requires.NotNull(
+                continuation,
                 nameof(continuation));
 
             if (this.sourceObject.Dispatcher?.CheckAccess() ?? true)

@@ -34,14 +34,14 @@ namespace IX.StandardExtensions.WPF.Localization
             object parameter,
             CultureInfo culture)
         {
-            Contract.RequiresArgumentOfType<string>(parameter, nameof(parameter));
+            Requires.ArgumentOfType<string>(parameter, nameof(parameter));
 
             if (this.IsInDesignMode)
             {
                 return parameter;
             }
 
-            Contract.RequiresArgumentOfType<BindingAssemblyResourceReader>(value, nameof(value));
+            Requires.ArgumentOfType<BindingAssemblyResourceReader>(value, nameof(value));
 
             var key = parameter as string;
             var reader = (BindingAssemblyResourceReader)value;

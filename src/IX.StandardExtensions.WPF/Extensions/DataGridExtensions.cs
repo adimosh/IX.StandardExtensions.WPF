@@ -25,7 +25,7 @@ namespace IX.StandardExtensions.WPF.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="dataGrid"/> is <see langword="null"/> (<see langword="Nothing"/> in Visual Basic).</exception>
         public static DataGridRow GetRowFromIndex(this DataGrid dataGrid, int index)
         {
-            Contract.RequiresNotNull(in dataGrid, nameof(dataGrid));
+            Requires.NotNull(dataGrid, nameof(dataGrid));
 
             if (dataGrid.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {
@@ -44,7 +44,7 @@ namespace IX.StandardExtensions.WPF.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="dataGrid"/> is <see langword="null"/> (<see langword="Nothing"/> in Visual Basic).</exception>
         public static DataGridRow GetRowFromItem(this DataGrid dataGrid, object item)
         {
-            Contract.RequiresNotNull(in dataGrid, nameof(dataGrid));
+            Requires.NotNull(dataGrid, nameof(dataGrid));
 
             if (dataGrid.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {
