@@ -24,6 +24,6 @@ jobs:
     name: Azure Pipelines
     vmImage: windows-latest
   steps:
-  - template: yaml/job-release-build.yml@templates
+  - template: yaml/job-release-build-notest.yml@templates
     parameters:
       solutionName: 'IX.StandardExtensions.WPF'
