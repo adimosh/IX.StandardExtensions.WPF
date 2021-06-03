@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <!-- Build configuration -->
   <PropertyGroup>
@@ -12,13 +12,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>- Updated for .NET 5.0.
-- Removed .NET 4.5.2 support.
-- Removed ProjectSystem dependency.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Dependency package updates.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>0.7.1</VersionPrefix>
+    <VersionPrefix>0.7.2</VersionPrefix>
     <VersionSuffix>alpha</VersionSuffix>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
