@@ -2,7 +2,7 @@
 
   <!-- Build configuration -->
   <PropertyGroup>
-    <TargetFrameworks>net461;net472;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net46;net461;net472;net5.0-windows</TargetFrameworks>
   </PropertyGroup>
 
   <!-- Package metadata -->
@@ -13,10 +13,28 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>- Updated for .NET 5.0.
-- Removed .NET 4.5.2 support.</PackageReleaseNotes>
+- Removed .NET 4.5.2 support.
+- Removed ProjectSystem dependency.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VersionPrefix>0.7.1</VersionPrefix>
+    <VersionSuffix>alpha</VersionSuffix>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>../../opt/snk/ix.framework.strongname.snk</AssemblyOriginatorKeyFile>
+    <RootNamespace>IX</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Branding -->
+  <PropertyGroup>
+    <Authors>Adrian Mos</Authors>
+    <Company />
+    <Product>IX Framework</Product>
+    <Copyright>Adrian Mos, 2016</Copyright>
+    <PackageProjectUrl>https://github.com/adimosh/IX.Framework/</PackageProjectUrl>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <!-- References -->
@@ -37,8 +55,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IX.StandardExtensions" Version="0.7.3" />
-    <PackageReference Include="IX.Observable" Version="0.7.0" />
+    <PackageReference Include="IX.StandardExtensions" Version="[0.7.3,0.8)" />
+    <PackageReference Include="IX.Observable" Version="[0.7.0,0.8)" />
   </ItemGroup>
 
   <!-- Resources -->
@@ -82,14 +100,6 @@
     <EmbeddedResource Update="Resources.se.resx">
       <DependentUpon>Resources.resx</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <!-- Project system and dependencies -->
-  <ItemGroup>
-    <PackageReference Include="IX.Framework.ProjectSystem" Version="1.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
 </Project>
