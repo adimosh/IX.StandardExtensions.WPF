@@ -17,12 +17,20 @@ namespace IX.StandardExtensions.WPF.ValueConverters
     [PublicAPI]
     public abstract class ValueConverterBase : IValueConverter
     {
+#region Properties and indexers
+
         /// <summary>
         ///     Gets a value indicating whether this value converter is in design mode.
         /// </summary>
         /// <value><see langword="true" /> if this value converter is in design mode; otherwise, <see langword="false" />.</value>
         [Browsable(false)]
         public bool IsInDesignMode => DesignMode.IsInDesignMode;
+
+#endregion
+
+#region Methods
+
+#region Interface implementations
 
         /// <summary>
         ///     Converts a value.
@@ -43,7 +51,8 @@ namespace IX.StandardExtensions.WPF.ValueConverters
             object value,
             Type targetType,
             object parameter,
-            CultureInfo culture) => throw new NotImplementedByDesignException();
+            CultureInfo culture) =>
+            throw new NotImplementedByDesignException();
 
         /// <summary>
         ///     Converts a value back.
@@ -60,6 +69,11 @@ namespace IX.StandardExtensions.WPF.ValueConverters
             object value,
             Type targetType,
             object parameter,
-            CultureInfo culture) => throw new NotImplementedByDesignException();
+            CultureInfo culture) =>
+            throw new NotImplementedByDesignException();
+
+#endregion
+
+#endregion
     }
 }

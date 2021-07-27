@@ -15,7 +15,7 @@ namespace IX.StandardExtensions.WPF
     [PublicAPI]
     public static class DesignMode
     {
-        private static readonly Lazy<bool> RuntimeIsInDesignMode = new Lazy<bool>(
+        private static readonly Lazy<bool> RuntimeIsInDesignMode = new(
             () => (bool)DependencyPropertyDescriptor.FromProperty(
                 DesignerProperties.IsInDesignModeProperty,
                 typeof(FrameworkElement)).Metadata.DefaultValue);

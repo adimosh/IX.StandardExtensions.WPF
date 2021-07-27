@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <!-- Build configuration -->
   <PropertyGroup>
@@ -12,16 +12,16 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>- Dependency package updates.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Dependency package updates.
+- Observable </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
     <VersionPrefix>0.7.2</VersionPrefix>
-    <VersionSuffix>alpha</VersionSuffix>
+    <!--<VersionSuffix>alpha</VersionSuffix>-->
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>../../opt/snk/ix.framework.strongname.snk</AssemblyOriginatorKeyFile>
-    <RootNamespace>IX</RootNamespace>
   </PropertyGroup>
 
   <!-- Branding -->
@@ -53,8 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IX.StandardExtensions" Version="[0.7.3,0.8)" />
-    <PackageReference Include="IX.Observable" Version="[0.7.0,0.8)" />
+    <PackageReference Include="IX.StandardExtensions" Version="[0.7.11,0.8)" />
   </ItemGroup>
 
   <!-- Resources -->

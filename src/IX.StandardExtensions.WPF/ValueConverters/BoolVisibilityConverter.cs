@@ -17,6 +17,8 @@ namespace IX.StandardExtensions.WPF.ValueConverters
     [PublicAPI]
     public class BoolVisibilityConverter : ValueConverterBase
     {
+#region Methods
+
         /// <summary>
         ///     Converts a value.
         /// </summary>
@@ -32,10 +34,6 @@ namespace IX.StandardExtensions.WPF.ValueConverters
         ///     <paramref name="value" /> is not
         ///     <see cref="bool" /> or Nullable&lt;<see cref="bool" />&gt;.
         /// </exception>
-        [SuppressMessage(
-            "Performance",
-            "HAA0601:Value type to reference type conversion causing boxing allocation",
-            Justification = "Unavoidable in a WPF value converter.")]
         public override object Convert(
             object value,
             Type targetType,
@@ -111,5 +109,7 @@ namespace IX.StandardExtensions.WPF.ValueConverters
                 ? result == Visibility.Visible || result == Visibility.Collapsed
                 : result == Visibility.Visible;
         }
+
+#endregion
     }
 }

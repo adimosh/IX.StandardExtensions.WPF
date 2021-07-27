@@ -23,6 +23,10 @@ namespace IX.StandardExtensions.WPF.Extensions
     // ReSharper disable once InconsistentNaming
     public static class UIElementExtensions
     {
+#region Methods
+
+#region Static methods
+
         /// <summary>
         ///     Creates a cursor from an element.
         /// </summary>
@@ -35,16 +39,14 @@ namespace IX.StandardExtensions.WPF.Extensions
             int xPosition,
             int yPosition)
         {
-            using (Bitmap bitmap = CreateImageFromElement(element))
-            {
-                return CreateCursorByUnmanaged(
-                    bitmap,
-                    xPosition,
-                    yPosition);
-            }
+            using Bitmap bitmap = CreateImageFromElement(element);
+
+            return CreateCursorByUnmanaged(
+                bitmap,
+                xPosition,
+                yPosition);
         }
 
-#pragma warning disable ERP022 // Catching everything considered harmful. - This is acceptable
         /// <summary>
         ///     Creates an image from an element.
         /// </summary>
@@ -68,7 +70,8 @@ namespace IX.StandardExtensions.WPF.Extensions
                     element.DesiredSize));
 
             // Get the presentation source and composition target, if one exists
-            CompositionTarget compositionTarget = PresentationSource.FromVisual(element)?.CompositionTarget;
+            CompositionTarget compositionTarget = PresentationSource.FromVisual(element)
+                ?.CompositionTarget;
 
             if (compositionTarget == null)
             {
@@ -95,12 +98,11 @@ namespace IX.StandardExtensions.WPF.Extensions
                 encoder.Frames.Add(BitmapFrame.Create(rtb));
 
                 // Save bitmap
-                using (var memoryStream = new MemoryStream())
-                {
-                    encoder.Save(memoryStream);
+                using var memoryStream = new MemoryStream();
 
-                    return new Bitmap(memoryStream);
-                }
+                encoder.Save(memoryStream);
+
+                return new Bitmap(memoryStream);
             }
             catch
             {
@@ -108,7 +110,6 @@ namespace IX.StandardExtensions.WPF.Extensions
                 return null;
             }
         }
-#pragma warning restore ERP022 // Catching everything considered harmful.
 
         private static Cursor CreateCursorByUnmanaged(
             Bitmap bitmap,
@@ -126,7 +127,12 @@ namespace IX.StandardExtensions.WPF.Extensions
             unmanagedIconInfo.fIcon = false;
 
             Unmanaged.SafeIconHandle cursorHandle = Unmanaged.CreateIconIndirect(ref unmanagedIconInfo);
+
             return CursorInteropHelper.Create(cursorHandle);
         }
+
+#endregion
+
+#endregion
     }
 }

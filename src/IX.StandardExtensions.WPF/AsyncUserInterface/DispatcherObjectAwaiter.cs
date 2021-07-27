@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using IX.StandardExtensions.Contracts;
@@ -17,14 +18,19 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
     [PublicAPI]
     public class DispatcherObjectAwaiter : INotifyCompletion
     {
-        [NotNull]
+#region Internal state
+
         private readonly DispatcherObject sourceObject;
+
+#endregion
+
+#region Constructors and destructors
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DispatcherObjectAwaiter" /> class.
         /// </summary>
         /// <param name="sourceObject">The source object.</param>
-        public DispatcherObjectAwaiter([NotNull] DispatcherObject sourceObject)
+        public DispatcherObjectAwaiter(DispatcherObject sourceObject)
         {
             Requires.NotNull(
                 sourceObject,
@@ -33,13 +39,40 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
             this.sourceObject = sourceObject;
         }
 
+#endregion
+
+#region Properties and indexers
+
         /// <summary>
         ///     Gets a value indicating whether this <see cref="DispatcherObjectAwaiter" /> is is completed.
         /// </summary>
         /// <value>
         ///     <c>true</c> if is completed; otherwise, <c>false</c>.
         /// </value>
-        public bool Iscompleted => this.sourceObject.CheckAccess();
+        [Obsolete("This is a type, please use IsCompleted.")]
+        [SuppressMessage(
+            "ReSharper",
+            "IdentifierTypo",
+            Justification = "Obsoleted and created fixed overload.")]
+        [SuppressMessage(
+            "CodeQuality",
+            "IDE0079:Remove unnecessary suppression",
+            Justification = "")]
+        public bool Iscompleted => this.IsCompleted;
+
+        /// <summary>
+        ///     Gets a value indicating whether this <see cref="DispatcherObjectAwaiter" /> is is completed.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if is completed; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsCompleted => this.sourceObject.CheckAccess();
+
+#endregion
+
+#region Methods
+
+#region Interface implementations
 
         /// <summary>Schedules the continuation action that's invoked when the instance completes.</summary>
         /// <param name="continuation">The action to invoke when the operation completes.</param>
@@ -65,11 +98,13 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
             }
         }
 
+#endregion
+
         /// <summary>
         ///     Gets the result.
         /// </summary>
-        public void GetResult()
-        {
-        }
+        public void GetResult() { }
+
+#endregion
     }
 }

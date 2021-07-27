@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using Microsoft.Win32.SafeHandles;
@@ -11,6 +12,10 @@ namespace IX.StandardExtensions.WPF
 {
     internal static class Unmanaged
     {
+#region Methods
+
+#region Static methods
+
         [DllImport("user32.dll")]
         internal static extern SafeIconHandle CreateIconIndirect(ref IconInfo icon);
 
@@ -23,15 +28,24 @@ namespace IX.StandardExtensions.WPF
         [DllImport("user32.dll")]
         private static extern bool DestroyIcon(IntPtr hIcon);
 
-#pragma warning disable SA1307 // Accessible fields should begin with upper-case letter - naming convention ignored as these are interop structs
-#pragma warning disable IDE0012 // Simplify Names
+#endregion
 
-        // ReSharper disable InconsistentNaming
+#endregion
+
+#region Nested types and delegates
 
         /// <summary>
         ///     The interop version of the ICONINFO struct.
         /// </summary>
         [UsedImplicitly]
+        [SuppressMessage(
+            "ReSharper",
+            "InconsistentNaming",
+            Justification = "These need to be named like this.")]
+        [SuppressMessage(
+            "CodeQuality",
+            "IDE0079:Remove unnecessary suppression",
+            Justification = "We're using ReSharper")]
         public struct IconInfo
         {
             /// <summary>
@@ -66,19 +80,23 @@ namespace IX.StandardExtensions.WPF
             public IntPtr hbmColor;
         }
 
-        // ReSharper restore InconsistentNaming
-#pragma warning restore IDE0012 // Simplify Names
-#pragma warning restore SA1307 // Accessible fields should begin with upper-case letter
-
         [UsedImplicitly]
         internal class SafeIconHandle : SafeHandleZeroOrMinusOneIsInvalid
         {
+#region Constructors and destructors
+
             public SafeIconHandle()
-                : base(true)
-            {
-            }
+                : base(true) { }
+
+#endregion
+
+#region Methods
 
             protected override bool ReleaseHandle() => DestroyIcon(this.handle);
+
+#endregion
         }
+
+#endregion
     }
 }

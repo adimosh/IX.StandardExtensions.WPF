@@ -17,6 +17,8 @@ namespace IX.StandardExtensions.WPF.ValueConverters
     [PublicAPI]
     public class NegateBoolConverter : ValueConverterBase
     {
+#region Methods
+
         /// <summary>
         ///     Converts a value.
         /// </summary>
@@ -42,12 +44,13 @@ namespace IX.StandardExtensions.WPF.ValueConverters
             object parameter,
             CultureInfo culture)
         {
-            bool convertedValue = value switch
+            var convertedValue = value switch
             {
                 bool b => b,
                 null => false,
                 _ => throw new ArgumentInvalidTypeException(nameof(value))
             };
+
             return !convertedValue;
         }
 
@@ -76,13 +79,16 @@ namespace IX.StandardExtensions.WPF.ValueConverters
             object parameter,
             CultureInfo culture)
         {
-            bool convertedValue = value switch
+            var convertedValue = value switch
             {
                 bool b => b,
                 null => true,
                 _ => throw new ArgumentInvalidTypeException(nameof(value))
             };
+
             return !convertedValue;
         }
+
+#endregion
     }
 }

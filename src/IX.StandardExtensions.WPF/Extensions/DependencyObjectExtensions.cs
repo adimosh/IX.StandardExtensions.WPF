@@ -15,33 +15,9 @@ namespace IX.StandardExtensions.WPF.Extensions
     [PublicAPI]
     public static class DependencyObjectExtensions
     {
-        /// <summary>
-        ///     Gets the topmost visual parent of a specific type from the visual tree.
-        /// </summary>
-        /// <typeparam name="T">The type of the visual parent to get.</typeparam>
-        /// <param name="childObject">The child object.</param>
-        /// <returns>
-        ///     A visual object of the specified type, or <see langword="null" /> (<see langword="Nothing" /> in Visual Basic)
-        ///     if one does not exist.
-        /// </returns>
-        public static T GetTopmostVisualParent<T>(this DependencyObject childObject)
-            where T : DependencyObject
-        {
-            if (childObject == null)
-            {
-                return null;
-            }
+#region Methods
 
-            DependencyObject parent = VisualTreeHelper.GetParent(childObject);
-
-            // Iteratively traverse the visual tree
-            while (parent != null && !(parent is T))
-            {
-                parent = VisualTreeHelper.GetParent(parent);
-            }
-
-            return parent as T;
-        }
+#region Static methods
 
         /// <summary>
         ///     Get1sts the first level of level visual children.
@@ -56,6 +32,7 @@ namespace IX.StandardExtensions.WPF.Extensions
             GetFirstLevelVisualChildren(
                 parent,
                 visualCollection);
+
             return visualCollection;
         }
 
@@ -94,6 +71,34 @@ namespace IX.StandardExtensions.WPF.Extensions
         }
 
         /// <summary>
+        ///     Gets the topmost visual parent of a specific type from the visual tree.
+        /// </summary>
+        /// <typeparam name="T">The type of the visual parent to get.</typeparam>
+        /// <param name="childObject">The child object.</param>
+        /// <returns>
+        ///     A visual object of the specified type, or <see langword="null" /> (<see langword="Nothing" /> in Visual Basic)
+        ///     if one does not exist.
+        /// </returns>
+        public static T GetTopmostVisualParent<T>(this DependencyObject childObject)
+            where T : DependencyObject
+        {
+            if (childObject == null)
+            {
+                return null;
+            }
+
+            DependencyObject parent = VisualTreeHelper.GetParent(childObject);
+
+            // Iteratively traverse the visual tree
+            while (parent != null && !(parent is T))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return parent as T;
+        }
+
+        /// <summary>
         ///     Gets a visual child of a certain type.
         /// </summary>
         /// <typeparam name="T">The type of the visual child to get.</typeparam>
@@ -107,11 +112,14 @@ namespace IX.StandardExtensions.WPF.Extensions
                 return null;
             }
 
-            var furtherDownTree = new List<DependencyObject> { parent };
-
-            for (int q = 0; q < furtherDownTree.Count; q++)
+            var furtherDownTree = new List<DependencyObject>
             {
-                var localParent = furtherDownTree[q];
+                parent
+            };
+
+            for (var q = 0; q < furtherDownTree.Count; q++)
+            {
+                DependencyObject localParent = furtherDownTree[q];
                 var numVisuals = VisualTreeHelper.GetChildrenCount(localParent);
                 for (var i = 0; i < numVisuals; i++)
                 {
@@ -146,5 +154,9 @@ namespace IX.StandardExtensions.WPF.Extensions
 
             return GetTopmostVisualParent<Window>(current);
         }
+
+#endregion
+
+#endregion
     }
 }

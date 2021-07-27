@@ -13,12 +13,20 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
     [PublicAPI]
     public static class DispatcherObjectGetAwaiterExtensions
     {
+#region Methods
+
+#region Static methods
+
         /// <summary>
         ///     Gets an awaiter for any <see cref="DispatcherObject" /> that invokes a continuation on the dispatcher thread.
         /// </summary>
         /// <param name="dispatcherObject">The dispatcher object.</param>
         /// <returns>A dispatcher-based awaiter.</returns>
         public static DispatcherObjectAwaiter GetAwaiter(this DispatcherObject dispatcherObject) =>
-            new DispatcherObjectAwaiter(dispatcherObject);
+            new(dispatcherObject);
+
+#endregion
+
+#endregion
     }
 }
