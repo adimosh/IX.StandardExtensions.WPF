@@ -2,9 +2,11 @@
 // Copyright (c) Adrian Mos with all rights reserved. Part of the IX Framework.
 // </copyright>
 
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
+using IX.StandardExtensions.Contracts;
 using JetBrains.Annotations;
 
 namespace IX.StandardExtensions.WPF.Extensions
@@ -90,7 +92,7 @@ namespace IX.StandardExtensions.WPF.Extensions
             DependencyObject parent = VisualTreeHelper.GetParent(childObject);
 
             // Iteratively traverse the visual tree
-            while (parent != null && !(parent is T))
+            while (parent != null && parent is not T)
             {
                 parent = VisualTreeHelper.GetParent(parent);
             }
@@ -153,6 +155,33 @@ namespace IX.StandardExtensions.WPF.Extensions
             }
 
             return GetTopmostVisualParent<Window>(current);
+        }
+
+        /// <summary>
+        /// Gets the value of a dependency property as a specific type.
+        /// </summary>
+        /// <typeparam name="T">The type of value to get.</typeparam>
+        /// <param name="dependencyObject">The dependency object that tries to get the value.</param>
+        /// <param name="dependencyProperty">The dependency property to get the value of.</param>
+        /// <returns>The value, if one exists, otherwise a default value.</returns>
+        /// <exception cref="InvalidCastException">A value exists for that dependency property, but it cannot be cast to the desired type.</exception>
+        public static T GetValue<T>(
+            this DependencyObject dependencyObject,
+            DependencyProperty dependencyProperty)
+        {
+            object rawValue = dependencyObject.GetValue(Requires.NotNull(dependencyProperty));
+
+            if (rawValue is null)
+            {
+                return default;
+            }
+
+            if (rawValue is not T convertedValue)
+            {
+                throw new InvalidCastException();
+            }
+
+            return convertedValue;
         }
 
 #endregion

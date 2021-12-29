@@ -2,7 +2,7 @@
 
   <!-- Build configuration -->
   <PropertyGroup>
-    <TargetFrameworks>net46;net461;net472;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net46;net461;net472;net5.0-windows;net6.0-windows</TargetFrameworks>
   </PropertyGroup>
 
   <!-- Package metadata -->
@@ -12,8 +12,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>- Dependency package updates.
-- Observable </PackageReleaseNotes>
+    <PackageReleaseNotes>- Added .NET 6 target
+- Added some useful extensions for drag&amp;drop
+- Some extensions for dependency properties
+- Dependency updates</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -44,16 +46,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0-windows'">
+  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0-windows' or '$(TargetFramework)'=='net6.0-windows'">
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net5.0-windows'">
-    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net6.0-windows'">
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IX.StandardExtensions" Version="[0.7.11,0.8)" />
+    <PackageReference Include="IX.StandardExtensions" Version="[0.7.18,0.8)" />
   </ItemGroup>
 
   <!-- Resources -->
@@ -64,7 +70,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-  
+
   <ItemGroup>
     <EmbeddedResource Update="Resources.de.resx">
       <DependentUpon>Resources.resx</DependentUpon>
