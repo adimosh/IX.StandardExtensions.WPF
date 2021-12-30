@@ -12,11 +12,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>- Some missing drag&amp;drop extensions</PackageReleaseNotes>
+    <PackageReleaseNotes>- Some missing drag&amp;drop extensions
+- FrameworkElement extensions for strongly-typed resources</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>0.7.4</VersionPrefix>
+    <VersionPrefix>0.7.5</VersionPrefix>
     <VersionSuffix>alpha</VersionSuffix>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
