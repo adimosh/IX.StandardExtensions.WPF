@@ -36,21 +36,16 @@ namespace IX.StandardExtensions.WPF.Localization
             object parameter,
             CultureInfo culture)
         {
-            Requires.ArgumentOfType<string>(
-                parameter,
-                nameof(parameter));
+            Requires.ArgumentOfType<string>(parameter);
 
             if (this.IsInDesignMode)
             {
                 return parameter;
             }
 
-            Requires.ArgumentOfType<BindingAssemblyResourceReader>(
-                value,
-                nameof(value));
+            var reader = Requires.ArgumentOfType<BindingAssemblyResourceReader>(value);
 
             var key = parameter as string;
-            var reader = (BindingAssemblyResourceReader)value;
 
             return reader?.GetLocalizedResource(key) ?? parameter;
         }

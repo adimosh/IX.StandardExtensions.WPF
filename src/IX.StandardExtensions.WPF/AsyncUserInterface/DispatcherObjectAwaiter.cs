@@ -32,11 +32,7 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
         /// <param name="sourceObject">The source object.</param>
         public DispatcherObjectAwaiter(DispatcherObject sourceObject)
         {
-            Requires.NotNull(
-                sourceObject,
-                nameof(sourceObject));
-
-            this.sourceObject = sourceObject;
+            Requires.NotNull(out this.sourceObject, sourceObject);
         }
 
 #endregion
@@ -82,9 +78,7 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
         /// </exception>
         public void OnCompleted(Action continuation)
         {
-            Requires.NotNull(
-                continuation,
-                nameof(continuation));
+            Requires.NotNull(continuation);
 
             if (this.sourceObject.Dispatcher?.CheckAccess() ?? true)
             {

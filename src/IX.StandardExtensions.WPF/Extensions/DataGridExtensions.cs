@@ -37,9 +37,7 @@ namespace IX.StandardExtensions.WPF.Extensions
             this DataGrid dataGrid,
             int index)
         {
-            Requires.NotNull(
-                dataGrid,
-                nameof(dataGrid));
+            Requires.NotNull(dataGrid);
 
             if (dataGrid.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {
@@ -66,9 +64,7 @@ namespace IX.StandardExtensions.WPF.Extensions
             this DataGrid dataGrid,
             object item)
         {
-            Requires.NotNull(
-                dataGrid,
-                nameof(dataGrid));
+            Requires.NotNull(dataGrid);
 
             if (dataGrid.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {
@@ -107,9 +103,7 @@ namespace IX.StandardExtensions.WPF.Extensions
         public static void ScrollIntoView(
             this DataGrid dataGrid,
             int index) =>
-            Requires.NotNull(
-                    dataGrid,
-                    nameof(dataGrid))
+            Requires.NotNull(dataGrid)
                 .ScrollIntoView(dataGrid.Items[index]);
 
 #endregion

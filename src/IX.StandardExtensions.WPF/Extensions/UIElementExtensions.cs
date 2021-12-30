@@ -55,9 +55,7 @@ namespace IX.StandardExtensions.WPF.Extensions
         public static Bitmap CreateImageFromElement(this UIElement element)
         {
             // Argument validation
-            Requires.NotNull(
-                element,
-                nameof(element));
+            Requires.NotNull(element);
 
             // Measure and arrange the element
             element.Measure(

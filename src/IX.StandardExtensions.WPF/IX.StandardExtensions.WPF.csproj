@@ -12,11 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>- Added .NET 6 target
-- Added some useful extensions for drag&amp;drop
-- Some extensions for dependency properties
-- More converters
-- Dependency updates</PackageReleaseNotes>
+    <PackageReleaseNotes>- Some missing drag&amp;drop extensions</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
