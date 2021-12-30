@@ -129,7 +129,7 @@ namespace IX.StandardExtensions.WPF.Commanding
         public void TriggerCanExecuteChanged() =>
             this.CanExecuteChanged?.Invoke(
                 this,
-                new EventArgs());
+                EventArgs.Empty);
 
 #endregion
     }

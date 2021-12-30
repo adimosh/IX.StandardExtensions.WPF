@@ -49,7 +49,7 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
         /// <value>
         ///     <c>true</c> if is completed; otherwise, <c>false</c>.
         /// </value>
-        [Obsolete("This is a type, please use IsCompleted.")]
+        [Obsolete("This is a typo, please use IsCompleted.")]
         [SuppressMessage(
             "ReSharper",
             "IdentifierTypo",
@@ -57,7 +57,7 @@ namespace IX.StandardExtensions.WPF.AsyncUserInterface
         [SuppressMessage(
             "CodeQuality",
             "IDE0079:Remove unnecessary suppression",
-            Justification = "")]
+            Justification = "ReSharper is used in this project.")]
         public bool Iscompleted => this.IsCompleted;
 
         /// <summary>

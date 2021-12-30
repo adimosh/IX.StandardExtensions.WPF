@@ -43,10 +43,6 @@ namespace IX.StandardExtensions.WPF.ValueConverters
         ///     A converted value. If the method returns <see langword="null" />, the valid <see langword="null" /> value is
         ///     used.
         /// </returns>
-        /// <exception cref="IX.StandardExtensions.ArgumentInvalidTypeException">
-        ///     <paramref name="value" /> is not
-        ///     <see cref="bool" /> or Nullable&lt;<see cref="bool" />&gt;.
-        /// </exception>
         public virtual object Convert(
             object value,
             Type targetType,

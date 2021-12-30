@@ -43,9 +43,17 @@ namespace IX.StandardExtensions.WPF
             "InconsistentNaming",
             Justification = "These need to be named like this.")]
         [SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1307:Accessible fields should begin with upper-case letter",
+            Justification = "This is an inherited naming scheme.")]
+        [SuppressMessage(
             "CodeQuality",
             "IDE0079:Remove unnecessary suppression",
             Justification = "We're using ReSharper")]
+        [SuppressMessage(
+            "ReSharper",
+            "CommentTypo",
+            Justification = "The names must be as they appear.")]
         public struct IconInfo
         {
             /// <summary>
