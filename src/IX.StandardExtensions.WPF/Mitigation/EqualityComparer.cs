@@ -19,7 +19,7 @@ namespace IX.StandardExtensions.WPF.Mitigation
         private readonly object defaultComparer;
         private readonly MethodInfo comparerMethod;
 
-        public EqualityComparer(Type type)
+        private EqualityComparer(Type type)
         {
             Type comparerType = typeof(EqualityComparer<>).MakeGenericType(Requires.NotNull(type));
 
