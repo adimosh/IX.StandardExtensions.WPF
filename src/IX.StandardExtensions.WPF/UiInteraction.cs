@@ -8,206 +8,205 @@ using System.Windows;
 using System.Windows.Threading;
 using JetBrains.Annotations;
 
-namespace IX.StandardExtensions.WPF
+namespace IX.StandardExtensions.WPF;
+
+/// <summary>
+///     A static class providing some methods that deal with possible UI interaction wherever needed.
+/// </summary>
+[PublicAPI]
+public static class UiInteraction
 {
-    /// <summary>
-    ///     A static class providing some methods that deal with possible UI interaction wherever needed.
-    /// </summary>
-    [PublicAPI]
-    public static class UiInteraction
-    {
 #region Methods
 
 #region Static methods
 
-        /// <summary>
-        ///     Invokes an action asynchronously on a dispatcher, if one exists, and on the current thread if one does not exist,
-        ///     or we are already on the UI thread.
-        /// </summary>
-        /// <param name="toInvoke">The method to invoke.</param>
-        /// <returns>The task representing the invocation operation.</returns>
-        public static async Task UiSensibleAsyncInvoke(Action toInvoke)
+    /// <summary>
+    ///     Invokes an action asynchronously on a dispatcher, if one exists, and on the current thread if one does not exist,
+    ///     or we are already on the UI thread.
+    /// </summary>
+    /// <param name="toInvoke">The method to invoke.</param>
+    /// <returns>The task representing the invocation operation.</returns>
+    public static async Task UiSensibleAsyncInvoke(Action toInvoke)
+    {
+        Dispatcher dispatcher = Application.Current?.Dispatcher;
+
+        if (dispatcher?.CheckAccess() ?? true)
         {
-            Dispatcher dispatcher = Application.Current?.Dispatcher;
-
-            if (dispatcher?.CheckAccess() ?? true)
-            {
-                toInvoke();
-            }
-            else
-            {
-                await dispatcher.InvokeAsync(toInvoke);
-            }
+            toInvoke();
         }
-
-        /// <summary>
-        ///     Invokes an action asynchronously on a dispatcher, if one exists, and on the current thread if one does not exist,
-        ///     or we are already on the UI thread.
-        /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="toInvoke">The method to invoke.</param>
-        /// <returns>The result of the invocation.</returns>
-        public static async Task<TResult> UiSensibleAsyncInvoke<TResult>(Func<TResult> toInvoke)
+        else
         {
-            Dispatcher dispatcher = Application.Current?.Dispatcher;
-
-            if (dispatcher?.CheckAccess() ?? true)
-            {
-                return toInvoke();
-            }
-
-            return await dispatcher.InvokeAsync(toInvoke);
+            await dispatcher.InvokeAsync(toInvoke);
         }
-
-        /// <summary>
-        ///     Invokes an action asynchronously on a dispatcher, if one exists, and on the current thread if one does not exist,
-        ///     or we are already on the UI thread.
-        /// </summary>
-        /// <param name="toInvoke">The method to invoke.</param>
-        /// <param name="priority">
-        ///     The priority to invoke with. If the invocation does not take place on the dispatcher, this
-        ///     parameter is ignored.
-        /// </param>
-        /// <returns>The task representing the invocation operation.</returns>
-        public static async Task UiSensibleAsyncInvoke(
-            Action toInvoke,
-            DispatcherPriority priority)
-        {
-            Dispatcher dispatcher = Application.Current?.Dispatcher;
-
-            if (dispatcher?.CheckAccess() ?? true)
-            {
-                toInvoke();
-            }
-            else
-            {
-                await dispatcher.InvokeAsync(
-                    toInvoke,
-                    priority);
-            }
-        }
-
-        /// <summary>
-        ///     Invokes an action asynchronously on a dispatcher, if one exists, and on the current thread if one does not exist,
-        ///     or we are already on the UI thread.
-        /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="toInvoke">The method to invoke.</param>
-        /// <param name="priority">
-        ///     The priority to invoke with. If the invocation does not take place on the dispatcher, this
-        ///     parameter is ignored.
-        /// </param>
-        /// <returns>The result of the invocation.</returns>
-        public static async Task<TResult> UiSensibleAsyncInvoke<TResult>(
-            Func<TResult> toInvoke,
-            DispatcherPriority priority)
-        {
-            Dispatcher dispatcher = Application.Current?.Dispatcher;
-
-            if (dispatcher?.CheckAccess() ?? true)
-            {
-                return toInvoke();
-            }
-
-            return await dispatcher.InvokeAsync(
-                toInvoke,
-                priority);
-        }
-
-        /// <summary>
-        ///     Invokes an action synchronously on a dispatcher, if one exists, and on the current thread if one does not exist, or
-        ///     we are already on the UI thread.
-        /// </summary>
-        /// <param name="toInvoke">The method to invoke.</param>
-        public static void UiSensibleInvoke(Action toInvoke)
-        {
-            Dispatcher dispatcher = Application.Current?.Dispatcher;
-
-            if (dispatcher?.CheckAccess() ?? true)
-            {
-                toInvoke();
-            }
-            else
-            {
-                dispatcher.Invoke(toInvoke);
-            }
-        }
-
-        /// <summary>
-        ///     Invokes an action synchronously on a dispatcher, if one exists, and on the current thread if one does not exist, or
-        ///     we are already on the UI thread.
-        /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="toInvoke">The method to invoke.</param>
-        /// <returns>The result of the invocation.</returns>
-        public static TResult UiSensibleInvoke<TResult>(Func<TResult> toInvoke)
-        {
-            Dispatcher dispatcher = Application.Current?.Dispatcher;
-
-            if (dispatcher?.CheckAccess() ?? true)
-            {
-                return toInvoke();
-            }
-
-            return dispatcher.Invoke(toInvoke);
-        }
-
-        /// <summary>
-        ///     Invokes an action synchronously on a dispatcher, if one exists, and on the current thread if one does not exist, or
-        ///     we are already on the UI thread.
-        /// </summary>
-        /// <param name="toInvoke">The method to invoke.</param>
-        /// <param name="priority">
-        ///     The priority to invoke with. If the invocation does not take place on the dispatcher, this
-        ///     parameter is ignored.
-        /// </param>
-        public static void UiSensibleInvoke(
-            Action toInvoke,
-            DispatcherPriority priority)
-        {
-            Dispatcher dispatcher = Application.Current?.Dispatcher;
-
-            if (dispatcher?.CheckAccess() ?? true)
-            {
-                toInvoke();
-            }
-            else
-            {
-                dispatcher.Invoke(
-                    toInvoke,
-                    priority);
-            }
-        }
-
-        /// <summary>
-        ///     Invokes an action synchronously on a dispatcher, if one exists, and on the current thread if one does not exist, or
-        ///     we are already on the UI thread.
-        /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="toInvoke">The method to invoke.</param>
-        /// <param name="priority">
-        ///     The priority to invoke with. If the invocation does not take place on the dispatcher, this
-        ///     parameter is ignored.
-        /// </param>
-        /// <returns>The result of the invocation.</returns>
-        public static TResult UiSensibleInvoke<TResult>(
-            Func<TResult> toInvoke,
-            DispatcherPriority priority)
-        {
-            Dispatcher dispatcher = Application.Current?.Dispatcher;
-
-            if (dispatcher?.CheckAccess() ?? true)
-            {
-                return toInvoke();
-            }
-
-            return dispatcher.Invoke(
-                toInvoke,
-                priority);
-        }
-
-#endregion
-
-#endregion
     }
+
+    /// <summary>
+    ///     Invokes an action asynchronously on a dispatcher, if one exists, and on the current thread if one does not exist,
+    ///     or we are already on the UI thread.
+    /// </summary>
+    /// <typeparam name="TResult">The type of the result.</typeparam>
+    /// <param name="toInvoke">The method to invoke.</param>
+    /// <returns>The result of the invocation.</returns>
+    public static async Task<TResult> UiSensibleAsyncInvoke<TResult>(Func<TResult> toInvoke)
+    {
+        Dispatcher dispatcher = Application.Current?.Dispatcher;
+
+        if (dispatcher?.CheckAccess() ?? true)
+        {
+            return toInvoke();
+        }
+
+        return await dispatcher.InvokeAsync(toInvoke);
+    }
+
+    /// <summary>
+    ///     Invokes an action asynchronously on a dispatcher, if one exists, and on the current thread if one does not exist,
+    ///     or we are already on the UI thread.
+    /// </summary>
+    /// <param name="toInvoke">The method to invoke.</param>
+    /// <param name="priority">
+    ///     The priority to invoke with. If the invocation does not take place on the dispatcher, this
+    ///     parameter is ignored.
+    /// </param>
+    /// <returns>The task representing the invocation operation.</returns>
+    public static async Task UiSensibleAsyncInvoke(
+        Action toInvoke,
+        DispatcherPriority priority)
+    {
+        Dispatcher dispatcher = Application.Current?.Dispatcher;
+
+        if (dispatcher?.CheckAccess() ?? true)
+        {
+            toInvoke();
+        }
+        else
+        {
+            await dispatcher.InvokeAsync(
+                toInvoke,
+                priority);
+        }
+    }
+
+    /// <summary>
+    ///     Invokes an action asynchronously on a dispatcher, if one exists, and on the current thread if one does not exist,
+    ///     or we are already on the UI thread.
+    /// </summary>
+    /// <typeparam name="TResult">The type of the result.</typeparam>
+    /// <param name="toInvoke">The method to invoke.</param>
+    /// <param name="priority">
+    ///     The priority to invoke with. If the invocation does not take place on the dispatcher, this
+    ///     parameter is ignored.
+    /// </param>
+    /// <returns>The result of the invocation.</returns>
+    public static async Task<TResult> UiSensibleAsyncInvoke<TResult>(
+        Func<TResult> toInvoke,
+        DispatcherPriority priority)
+    {
+        Dispatcher dispatcher = Application.Current?.Dispatcher;
+
+        if (dispatcher?.CheckAccess() ?? true)
+        {
+            return toInvoke();
+        }
+
+        return await dispatcher.InvokeAsync(
+            toInvoke,
+            priority);
+    }
+
+    /// <summary>
+    ///     Invokes an action synchronously on a dispatcher, if one exists, and on the current thread if one does not exist, or
+    ///     we are already on the UI thread.
+    /// </summary>
+    /// <param name="toInvoke">The method to invoke.</param>
+    public static void UiSensibleInvoke(Action toInvoke)
+    {
+        Dispatcher dispatcher = Application.Current?.Dispatcher;
+
+        if (dispatcher?.CheckAccess() ?? true)
+        {
+            toInvoke();
+        }
+        else
+        {
+            dispatcher.Invoke(toInvoke);
+        }
+    }
+
+    /// <summary>
+    ///     Invokes an action synchronously on a dispatcher, if one exists, and on the current thread if one does not exist, or
+    ///     we are already on the UI thread.
+    /// </summary>
+    /// <typeparam name="TResult">The type of the result.</typeparam>
+    /// <param name="toInvoke">The method to invoke.</param>
+    /// <returns>The result of the invocation.</returns>
+    public static TResult UiSensibleInvoke<TResult>(Func<TResult> toInvoke)
+    {
+        Dispatcher dispatcher = Application.Current?.Dispatcher;
+
+        if (dispatcher?.CheckAccess() ?? true)
+        {
+            return toInvoke();
+        }
+
+        return dispatcher.Invoke(toInvoke);
+    }
+
+    /// <summary>
+    ///     Invokes an action synchronously on a dispatcher, if one exists, and on the current thread if one does not exist, or
+    ///     we are already on the UI thread.
+    /// </summary>
+    /// <param name="toInvoke">The method to invoke.</param>
+    /// <param name="priority">
+    ///     The priority to invoke with. If the invocation does not take place on the dispatcher, this
+    ///     parameter is ignored.
+    /// </param>
+    public static void UiSensibleInvoke(
+        Action toInvoke,
+        DispatcherPriority priority)
+    {
+        Dispatcher dispatcher = Application.Current?.Dispatcher;
+
+        if (dispatcher?.CheckAccess() ?? true)
+        {
+            toInvoke();
+        }
+        else
+        {
+            dispatcher.Invoke(
+                toInvoke,
+                priority);
+        }
+    }
+
+    /// <summary>
+    ///     Invokes an action synchronously on a dispatcher, if one exists, and on the current thread if one does not exist, or
+    ///     we are already on the UI thread.
+    /// </summary>
+    /// <typeparam name="TResult">The type of the result.</typeparam>
+    /// <param name="toInvoke">The method to invoke.</param>
+    /// <param name="priority">
+    ///     The priority to invoke with. If the invocation does not take place on the dispatcher, this
+    ///     parameter is ignored.
+    /// </param>
+    /// <returns>The result of the invocation.</returns>
+    public static TResult UiSensibleInvoke<TResult>(
+        Func<TResult> toInvoke,
+        DispatcherPriority priority)
+    {
+        Dispatcher dispatcher = Application.Current?.Dispatcher;
+
+        if (dispatcher?.CheckAccess() ?? true)
+        {
+            return toInvoke();
+        }
+
+        return dispatcher.Invoke(
+            toInvoke,
+            priority);
+    }
+
+#endregion
+
+#endregion
 }

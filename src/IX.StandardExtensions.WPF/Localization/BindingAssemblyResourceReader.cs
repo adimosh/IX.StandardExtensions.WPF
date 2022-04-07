@@ -10,160 +10,159 @@ using System.Resources;
 using IX.StandardExtensions.ComponentModel;
 using JetBrains.Annotations;
 
-namespace IX.StandardExtensions.WPF.Localization
+namespace IX.StandardExtensions.WPF.Localization;
+
+/// <summary>
+///     A string resource reader.
+/// </summary>
+[PublicAPI]
+public class BindingAssemblyResourceReader : NotifyPropertyChangedBase
 {
-    /// <summary>
-    ///     A string resource reader.
-    /// </summary>
-    [PublicAPI]
-    public class BindingAssemblyResourceReader : NotifyPropertyChangedBase
-    {
 #region Internal state
 
-        /// <summary>
-        ///     The resource managers.
-        /// </summary>
-        private readonly Dictionary<Tuple<string, string>, ResourceManager> resourceManagers;
+    /// <summary>
+    ///     The resource managers.
+    /// </summary>
+    private readonly Dictionary<Tuple<string, string>, ResourceManager> resourceManagers;
 
-        /// <summary>
-        ///     The culture.
-        /// </summary>
-        private CultureInfo culture;
+    /// <summary>
+    ///     The culture.
+    /// </summary>
+    private CultureInfo culture;
 
 #endregion
 
 #region Constructors and destructors
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="BindingAssemblyResourceReader" /> class.
-        /// </summary>
-        public BindingAssemblyResourceReader()
-        {
-            this.resourceManagers = new Dictionary<Tuple<string, string>, ResourceManager>();
-        }
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="BindingAssemblyResourceReader" /> class.
+    /// </summary>
+    public BindingAssemblyResourceReader()
+    {
+        this.resourceManagers = new Dictionary<Tuple<string, string>, ResourceManager>();
+    }
 
 #endregion
 
 #region Properties and indexers
 
-        /// <summary>
-        ///     Gets this instance.
-        /// </summary>
-        /// <value>Current instance.</value>
-        public BindingAssemblyResourceReader Localization => this;
+    /// <summary>
+    ///     Gets this instance.
+    /// </summary>
+    /// <value>Current instance.</value>
+    public BindingAssemblyResourceReader Localization => this;
 
-        /// <summary>
-        ///     Gets or sets the culture.
-        /// </summary>
-        /// <value>The culture.</value>
-        public CultureInfo Culture
+    /// <summary>
+    ///     Gets or sets the culture.
+    /// </summary>
+    /// <value>The culture.</value>
+    public CultureInfo Culture
+    {
+        get => this.culture;
+
+        set
         {
-            get => this.culture;
-
-            set
+            if (this.culture == value)
             {
-                if (this.culture == value)
-                {
-                    return;
-                }
-
-                this.culture = value;
-
-                this.RaisePropertyChanged(nameof(this.Localization));
+                return;
             }
+
+            this.culture = value;
+
+            this.RaisePropertyChanged(nameof(this.Localization));
         }
+    }
 
 #endregion
 
 #region Methods
 
-        /// <summary>
-        ///     Registers the used resources.
-        /// </summary>
-        /// <param name="assembly">The assembly.</param>
-        /// <param name="resourcePath">The resource path.</param>
-        /// <exception cref="InvalidOperationException">
-        ///     Could not crete resource manager, or registration already exists.
-        /// </exception>
-        public void RegisterUsedResources(
-            Assembly assembly,
-            string resourcePath)
+    /// <summary>
+    ///     Registers the used resources.
+    /// </summary>
+    /// <param name="assembly">The assembly.</param>
+    /// <param name="resourcePath">The resource path.</param>
+    /// <exception cref="InvalidOperationException">
+    ///     Could not crete resource manager, or registration already exists.
+    /// </exception>
+    public void RegisterUsedResources(
+        Assembly assembly,
+        string resourcePath)
+    {
+        var registration = new Tuple<string, string>(
+            assembly.FullName,
+            resourcePath);
+
+        if (this.resourceManagers.ContainsKey(registration))
         {
-            var registration = new Tuple<string, string>(
-                assembly.FullName,
-                resourcePath);
-
-            if (this.resourceManagers.ContainsKey(registration))
-            {
-                throw new InvalidOperationException();
-            }
-
-            ResourceManager manager;
-            try
-            {
-                manager = new ResourceManager(
-                    resourcePath,
-                    assembly);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException(
-                    Resources.ErrorSourceRegistrationCouldNotBeCreated,
-                    ex);
-            }
-
-            this.resourceManagers.Add(
-                registration,
-                manager);
+            throw new InvalidOperationException();
         }
 
-        /// <summary>
-        ///     Gets the localized resource.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="culture">The culture.</param>
-        /// <returns>The localized resource value.</returns>
-        public string GetLocalizedResource(
-            string key,
-            CultureInfo culture)
+        ResourceManager manager;
+        try
         {
-            foreach (ResourceManager man in this.resourceManagers.Values)
-            {
-                var entry = man.GetString(
-                    key,
-                    culture);
-
-                if (!string.IsNullOrEmpty(entry))
-                {
-                    return entry;
-                }
-            }
-
-            return null;
+            manager = new ResourceManager(
+                resourcePath,
+                assembly);
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException(
+                Resources.ErrorSourceRegistrationCouldNotBeCreated,
+                ex);
         }
 
-        /// <summary>
-        ///     Gets the localized resource.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns>The localized resource value.</returns>
-        public string GetLocalizedResource(string key)
+        this.resourceManagers.Add(
+            registration,
+            manager);
+    }
+
+    /// <summary>
+    ///     Gets the localized resource.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <param name="culture">The culture.</param>
+    /// <returns>The localized resource value.</returns>
+    public string GetLocalizedResource(
+        string key,
+        CultureInfo culture)
+    {
+        foreach (ResourceManager man in this.resourceManagers.Values)
         {
-            foreach (ResourceManager man in this.resourceManagers.Values)
+            var entry = man.GetString(
+                key,
+                culture);
+
+            if (!string.IsNullOrEmpty(entry))
             {
-                var entry = man.GetString(
-                    key,
-                    this.culture);
-
-                if (!string.IsNullOrEmpty(entry))
-                {
-                    return entry;
-                }
+                return entry;
             }
-
-            return null;
         }
+
+        return null;
+    }
+
+    /// <summary>
+    ///     Gets the localized resource.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <returns>The localized resource value.</returns>
+    public string GetLocalizedResource(string key)
+    {
+        foreach (ResourceManager man in this.resourceManagers.Values)
+        {
+            var entry = man.GetString(
+                key,
+                this.culture);
+
+            if (!string.IsNullOrEmpty(entry))
+            {
+                return entry;
+            }
+        }
+
+        return null;
+    }
 
 #endregion
-    }
 }

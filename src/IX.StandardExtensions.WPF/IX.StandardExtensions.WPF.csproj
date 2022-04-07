@@ -3,6 +3,9 @@
   <!-- Build configuration -->
   <PropertyGroup>
     <TargetFrameworks>net46;net461;net472;net5.0-windows;net6.0-windows</TargetFrameworks>
+    <FailObsoleteTargetFrameworks>true</FailObsoleteTargetFrameworks>
+    <Nullable>Enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <!-- Package metadata -->
@@ -12,8 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>- Some missing drag&amp;drop extensions
-- FrameworkElement extensions for strongly-typed resources</PackageReleaseNotes>
+    <PackageReleaseNotes>- Dependency property-related extensions</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -44,6 +46,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="IX.StandardExtensions" Version="0.7.21" />
+  </ItemGroup>
+
   <PropertyGroup Condition="'$(TargetFramework)'=='net5.0-windows' or '$(TargetFramework)'=='net6.0-windows'">
     <UseWPF>true</UseWPF>
   </PropertyGroup>
@@ -54,10 +60,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)'=='net6.0-windows'">
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="IX.StandardExtensions" Version="[0.7.18,0.8)" />
   </ItemGroup>
 
   <!-- Resources -->

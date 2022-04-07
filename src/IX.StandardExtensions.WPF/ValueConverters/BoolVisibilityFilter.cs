@@ -4,21 +4,20 @@
 
 using System.Windows;
 
-namespace IX.StandardExtensions.WPF.ValueConverters
+namespace IX.StandardExtensions.WPF.ValueConverters;
+
+/// <summary>
+///     Filter values for <see cref="bool" /> to <see cref="Visibility" /> converter.
+/// </summary>
+public enum BoolVisibilityFilter
 {
     /// <summary>
-    ///     Filter values for <see cref="bool" /> to <see cref="Visibility" /> converter.
+    ///     Filter Collapsed values and Hidden values.
     /// </summary>
-    public enum BoolVisibilityFilter
-    {
-        /// <summary>
-        ///     Filter Collapsed values and Hidden values.
-        /// </summary>
-        Collapsed = 0,
+    Collapsed = 0,
 
-        /// <summary>
-        ///     Filter only for Hidden values.
-        /// </summary>
-        Hidden = 1
-    }
+    /// <summary>
+    ///     Filter only for Hidden values.
+    /// </summary>
+    Hidden = 1
 }
