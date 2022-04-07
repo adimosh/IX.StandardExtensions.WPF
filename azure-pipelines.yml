@@ -36,7 +36,7 @@ stages:
       displayName: "Build in Debug"
       inputs:
         command: 'build'
-        projects: 'src/IX.StandardExtensions.sln'
+        projects: 'src/IX.StandardExtensions.WPF.sln'
         arguments: '-c Debug'
 
 - stage: build_release_stage
