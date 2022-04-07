@@ -2,9 +2,7 @@
 // Copyright (c) Adrian Mos with all rights reserved. Part of the IX Framework.
 // </copyright>
 
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
 using JetBrains.Annotations;
 
 namespace IX.StandardExtensions.WPF;

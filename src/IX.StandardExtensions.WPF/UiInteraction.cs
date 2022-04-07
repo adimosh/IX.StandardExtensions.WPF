@@ -2,8 +2,6 @@
 // Copyright (c) Adrian Mos with all rights reserved. Part of the IX Framework.
 // </copyright>
 
-using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using JetBrains.Annotations;
