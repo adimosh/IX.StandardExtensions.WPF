@@ -35,7 +35,7 @@ public class BindingLocalizer : ValueConverterBase
         object parameter,
         CultureInfo culture)
     {
-        Requires.ArgumentOfType<string>(parameter);
+        var key = Requires.ArgumentOfType<string>(parameter);
 
         if (this.IsInDesignMode)
         {
@@ -43,8 +43,6 @@ public class BindingLocalizer : ValueConverterBase
         }
 
         var reader = Requires.ArgumentOfType<BindingAssemblyResourceReader>(value);
-
-        var key = parameter as string;
 
         return reader?.GetLocalizedResource(key) ?? parameter;
     }

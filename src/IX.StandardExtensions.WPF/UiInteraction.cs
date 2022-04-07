@@ -26,7 +26,7 @@ public static class UiInteraction
     /// <returns>The task representing the invocation operation.</returns>
     public static async Task UiSensibleAsyncInvoke(Action toInvoke)
     {
-        Dispatcher dispatcher = Application.Current?.Dispatcher;
+        Dispatcher? dispatcher = Application.Current?.Dispatcher;
 
         if (dispatcher?.CheckAccess() ?? true)
         {
@@ -47,7 +47,7 @@ public static class UiInteraction
     /// <returns>The result of the invocation.</returns>
     public static async Task<TResult> UiSensibleAsyncInvoke<TResult>(Func<TResult> toInvoke)
     {
-        Dispatcher dispatcher = Application.Current?.Dispatcher;
+        Dispatcher? dispatcher = Application.Current?.Dispatcher;
 
         if (dispatcher?.CheckAccess() ?? true)
         {
@@ -71,7 +71,7 @@ public static class UiInteraction
         Action toInvoke,
         DispatcherPriority priority)
     {
-        Dispatcher dispatcher = Application.Current?.Dispatcher;
+        Dispatcher? dispatcher = Application.Current?.Dispatcher;
 
         if (dispatcher?.CheckAccess() ?? true)
         {
@@ -100,7 +100,7 @@ public static class UiInteraction
         Func<TResult> toInvoke,
         DispatcherPriority priority)
     {
-        Dispatcher dispatcher = Application.Current?.Dispatcher;
+        Dispatcher? dispatcher = Application.Current?.Dispatcher;
 
         if (dispatcher?.CheckAccess() ?? true)
         {
@@ -119,7 +119,7 @@ public static class UiInteraction
     /// <param name="toInvoke">The method to invoke.</param>
     public static void UiSensibleInvoke(Action toInvoke)
     {
-        Dispatcher dispatcher = Application.Current?.Dispatcher;
+        Dispatcher? dispatcher = Application.Current?.Dispatcher;
 
         if (dispatcher?.CheckAccess() ?? true)
         {
@@ -140,7 +140,7 @@ public static class UiInteraction
     /// <returns>The result of the invocation.</returns>
     public static TResult UiSensibleInvoke<TResult>(Func<TResult> toInvoke)
     {
-        Dispatcher dispatcher = Application.Current?.Dispatcher;
+        Dispatcher? dispatcher = Application.Current?.Dispatcher;
 
         if (dispatcher?.CheckAccess() ?? true)
         {
@@ -163,7 +163,7 @@ public static class UiInteraction
         Action toInvoke,
         DispatcherPriority priority)
     {
-        Dispatcher dispatcher = Application.Current?.Dispatcher;
+        Dispatcher? dispatcher = Application.Current?.Dispatcher;
 
         if (dispatcher?.CheckAccess() ?? true)
         {
@@ -192,7 +192,7 @@ public static class UiInteraction
         Func<TResult> toInvoke,
         DispatcherPriority priority)
     {
-        Dispatcher dispatcher = Application.Current?.Dispatcher;
+        Dispatcher? dispatcher = Application.Current?.Dispatcher;
 
         if (dispatcher?.CheckAccess() ?? true)
         {

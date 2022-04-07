@@ -40,7 +40,7 @@ public static class FrameworkElementExtensions
     /// <param name="frameworkElement">The framework element to search into.</param>
     /// <param name="resourceKey">The resource key.</param>
     /// <returns>The resource of the desired type, if such a resource exists and can be cast to the desired type, otherwise <c>null</c> (<c>Nothing</c> in Visual Basic).</returns>
-    public static T TryFindResource<T>(
+    public static T? TryFindResource<T>(
         this FrameworkElement frameworkElement,
         object resourceKey) =>
         frameworkElement.FindResource(resourceKey) is not T convertedResource ? default : convertedResource;

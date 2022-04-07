@@ -13,6 +13,7 @@ namespace IX.StandardExtensions.WPF.ValueConverters;
 [PublicAPI]
 public class UnderscoreEscapeConverter : ValueConverterBase
 {
+#pragma warning disable CS8764 // Nullability of return type doesn't match overridden member (possibly because of nullability attributes).
     /// <summary>
     ///     Converts a value.
     /// </summary>
@@ -24,8 +25,8 @@ public class UnderscoreEscapeConverter : ValueConverterBase
     ///     A converted value. If the method returns <see langword="null" />, the valid <see langword="null" /> value is
     ///     used.
     /// </returns>
-    public override object Convert(
-        object value,
+    public override object? Convert(
+        object? value,
         Type targetType,
         object parameter,
         CultureInfo culture)
@@ -44,4 +45,5 @@ public class UnderscoreEscapeConverter : ValueConverterBase
             "_",
             "__");
     }
+#pragma warning restore CS8764 // Nullability of return type doesn't match overridden member (possibly because of nullability attributes).
 }

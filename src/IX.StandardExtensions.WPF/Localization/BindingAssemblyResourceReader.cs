@@ -26,7 +26,7 @@ public class BindingAssemblyResourceReader : NotifyPropertyChangedBase
     /// <summary>
     ///     The culture.
     /// </summary>
-    private CultureInfo culture;
+    private CultureInfo? defaultCulture;
 
 #endregion
 
@@ -54,18 +54,18 @@ public class BindingAssemblyResourceReader : NotifyPropertyChangedBase
     ///     Gets or sets the culture.
     /// </summary>
     /// <value>The culture.</value>
-    public CultureInfo Culture
+    public CultureInfo? Culture
     {
-        get => this.culture;
+        get => this.defaultCulture;
 
         set
         {
-            if (this.culture == value)
+            if (this.defaultCulture == value)
             {
                 return;
             }
 
-            this.culture = value;
+            this.defaultCulture = value;
 
             this.RaisePropertyChanged(nameof(this.Localization));
         }
@@ -121,46 +121,26 @@ public class BindingAssemblyResourceReader : NotifyPropertyChangedBase
     /// <param name="key">The key.</param>
     /// <param name="culture">The culture.</param>
     /// <returns>The localized resource value.</returns>
-    public string GetLocalizedResource(
+    public string? GetLocalizedResource(
         string key,
-        CultureInfo culture)
-    {
-        foreach (ResourceManager man in this.resourceManagers.Values)
-        {
-            var entry = man.GetString(
-                key,
-                culture);
-
-            if (!string.IsNullOrEmpty(entry))
-            {
-                return entry;
-            }
-        }
-
-        return null;
-    }
+        CultureInfo culture) =>
+        this.resourceManagers.Values.Select(
+                man => man.GetString(
+                    key,
+                    culture))
+            .FirstOrDefault(entry => !string.IsNullOrEmpty(entry));
 
     /// <summary>
     ///     Gets the localized resource.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <returns>The localized resource value.</returns>
-    public string GetLocalizedResource(string key)
-    {
-        foreach (ResourceManager man in this.resourceManagers.Values)
-        {
-            var entry = man.GetString(
-                key,
-                this.culture);
-
-            if (!string.IsNullOrEmpty(entry))
-            {
-                return entry;
-            }
-        }
-
-        return null;
-    }
+    public string? GetLocalizedResource(string key) =>
+        this.resourceManagers.Values.Select(
+                man => man.GetString(
+                    key,
+                    this.defaultCulture))
+            .FirstOrDefault(entry => !string.IsNullOrEmpty(entry));
 
 #endregion
 }

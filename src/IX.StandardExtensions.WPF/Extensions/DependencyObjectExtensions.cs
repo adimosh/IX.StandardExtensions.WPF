@@ -79,7 +79,7 @@ public static class DependencyObjectExtensions
     ///     A visual object of the specified type, or <see langword="null" /> (<see langword="Nothing" /> in Visual Basic)
     ///     if one does not exist.
     /// </returns>
-    public static T GetTopmostVisualParent<T>(this DependencyObject childObject)
+    public static T? GetTopmostVisualParent<T>(this DependencyObject? childObject)
         where T : DependencyObject
     {
         if (childObject == null)
@@ -87,7 +87,7 @@ public static class DependencyObjectExtensions
             return null;
         }
 
-        DependencyObject parent = VisualTreeHelper.GetParent(childObject);
+        DependencyObject? parent = VisualTreeHelper.GetParent(childObject);
 
         // Iteratively traverse the visual tree
         while (parent != null && parent is not T)
@@ -104,7 +104,7 @@ public static class DependencyObjectExtensions
     /// <typeparam name="T">The type of the visual child to get.</typeparam>
     /// <param name="parent">The parent.</param>
     /// <returns>The visual child, if found, or <see langword="null" /> otherwise.</returns>
-    public static T GetVisualChild<T>(this DependencyObject parent)
+    public static T? GetVisualChild<T>(this DependencyObject? parent)
         where T : DependencyObject
     {
         if (parent == null)
@@ -145,7 +145,7 @@ public static class DependencyObjectExtensions
     /// </summary>
     /// <param name="current">The current dependency object.</param>
     /// <returns>The main window.</returns>
-    public static Window GetWindow(this DependencyObject current)
+    public static Window? GetWindow(this DependencyObject current)
     {
         if (current is Window window)
         {
@@ -163,7 +163,7 @@ public static class DependencyObjectExtensions
     /// <param name="dependencyProperty">The dependency property to get the value of.</param>
     /// <returns>The value, if one exists, otherwise a default value.</returns>
     /// <exception cref="InvalidCastException">A value exists for that dependency property, but it cannot be cast to the desired type.</exception>
-    public static T GetValue<T>(
+    public static T? GetValue<T>(
         this DependencyObject dependencyObject,
         DependencyProperty dependencyProperty)
     {

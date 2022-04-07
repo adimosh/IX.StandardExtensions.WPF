@@ -32,7 +32,7 @@ public static class DataGridExtensions
     ///     <paramref name="dataGrid" /> is <see langword="null" /> (
     ///     <see langword="Nothing" /> in Visual Basic).
     /// </exception>
-    public static DataGridRow GetRowFromIndex(
+    public static DataGridRow? GetRowFromIndex(
         this DataGrid dataGrid,
         int index)
     {
@@ -59,7 +59,7 @@ public static class DataGridExtensions
     ///     <paramref name="dataGrid" /> is <see langword="null" /> (
     ///     <see langword="Nothing" /> in Visual Basic).
     /// </exception>
-    public static DataGridRow GetRowFromItem(
+    public static DataGridRow? GetRowFromItem(
         this DataGrid dataGrid,
         object item)
     {
@@ -85,10 +85,10 @@ public static class DataGridExtensions
     ///     <paramref name="dataGrid" /> is <see langword="null" /> (
     ///     <see langword="Nothing" /> in Visual Basic).
     /// </exception>
-    public static DataGridRow GetSelectedRow(this DataGrid dataGrid) =>
+    public static DataGridRow? GetSelectedRow(this DataGrid dataGrid) =>
         GetRowFromItem(
-            dataGrid,
-            dataGrid?.SelectedItem);
+            dataGrid!,
+            dataGrid?.SelectedItem!);
 
     /// <summary>
     ///     Scrolls the item at a specific index into view.
